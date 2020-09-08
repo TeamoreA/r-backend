@@ -1,7 +1,7 @@
 from apps.account.serializers import RegistrationSerializer
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny
-from helpers.renderers import DefaultJSONRenderer
+from helpers.renderers import UserJSONRenderer
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework import status
@@ -9,7 +9,7 @@ from rest_framework import status
 class RegisterAPIView(GenericAPIView):
     """View to register a new user"""
     permission_classes =  (AllowAny,)
-    renderer_classes = (DefaultJSONRenderer,)
+    renderer_classes = (UserJSONRenderer,)
     serializer_class = RegistrationSerializer
     operation = "Register"
 
