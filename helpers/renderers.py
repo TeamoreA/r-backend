@@ -50,7 +50,7 @@ class UserJSONRenderer(JSONRenderer):
         return (
             json.dumps(data)
             if status.is_success(status_code)
-            else super(DefaultJSONRenderer, self).render(
+            else super(UserJSONRenderer, self).render(
                 {
                     "message": data.pop("message", "Fix the error(s) below"),
                     "errors": data,

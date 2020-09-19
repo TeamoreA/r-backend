@@ -21,7 +21,9 @@ class RegisterAPIView(GenericAPIView):
 
         return Response(
             {
-                "message": "Hello {}, You have ben successfully registered".format(request.data.get('username'))
+                "message": "Hello {}, You have been successfully registered".format(request.data.get('username')),
+                "status": "success",
+                "data": {"username": request.data.get('username'), "email": request.data.get('email')}
             },
             status=status.HTTP_201_CREATED,
         )

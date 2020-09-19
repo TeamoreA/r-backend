@@ -9,6 +9,9 @@ from helpers.renderers import DefaultRenderer
 from rest_framework.permissions import AllowAny
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import AllowAny
+from rest_framework.parsers import FileUploadParser
+from rest_framework.parsers import MultiPartParser
 
 
 class CategoryList(ListCreateAPIView):
@@ -17,24 +20,29 @@ class CategoryList(ListCreateAPIView):
     """
     name = "category"
     pluralized_name = "categories"
-    permission_classes = (IsAuthenticatedOrReadOnly, )
+    permission_classes = (AllowAny, ) #TODO
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     renderer_classes = (DefaultRenderer, )
+    parser_classes = (FileUploadParser,MultiPartParser)
+
+    def create(self, request, *args, **kwargs):
+        self.operation = "create category"
+        return super(ListCreateAPIView, self).create(request, *args, **kwargs)
 
 class CategoryDetail(RetrieveUpdateDestroyAPIViewWrapper):
     """Class for viewing, updating and deleting a category"""
     name = "category"
     pluralized_name = "categories"
-    permission_classes = (IsAuthenticatedOrReadOnly, )
+    permission_classes = (AllowAny, ) #TODO
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     renderer_classes = (DefaultRenderer, )
 
-    def update(self, request, ***args, **kwargs):
+    def update(self, request, *args, **kwargs):
         # overide the update method
         self.operation = "Update category"
-        return super(RetrieveUpdateDestroyAPIViewWrapper, self).update(request, ***args, **kwargs)
+        return super(RetrieveUpdateDestroyAPIViewWrapper, self).update(request, *args, **kwargs)
 
 
 class ProductList(ListCreateAPIView):
@@ -43,14 +51,14 @@ class ProductList(ListCreateAPIView):
     """
     name = "product"
     pluralized_name = "products"
-    permission_classes = (IsAuthenticatedOrReadOnly,)
+    permission_classes = (AllowAny,) #TODO
     serializer_class = ProductSerializer
     renderer_classes = (DefaultRenderer, )
     queryset = Product.objects.all()
 
-    def create(self, request, ***args, **kwargs):
+    def create(self, request, *args, **kwargs):
         self.operation = "create product"
-        retun super(ListCreateAPIView, self).create(request, ***args, **kwargs)
+        return super(ListCreateAPIView, self).create(request, *args, **kwargs)
 
 
 class ProductDetail(RetrieveUpdateDestroyAPIViewWrapper):
@@ -61,7 +69,7 @@ class ProductDetail(RetrieveUpdateDestroyAPIViewWrapper):
     pluralized_name = "products"
     serializer_class = ProductSerializer
     renderer_classes = (DefaultRenderer, )
-    permission_classes = (IsAuthenticated, )
+    permission_classes = (AllowAny, ) #TODO
     queryset = Product.objects.all()
 
 

@@ -18,7 +18,7 @@ class Product(MyBaseModel):
     description = models.TextField(blank=True)
     color = models.CharField(max_length=50)
     size = models.FloatField(blank=True)
-    catetory = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True)
     image = models.ImageField(upload_to='images')
 
     def __str__(self):
