@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from apps.account.backends import JWTAuthentication
 # from apps.account.models import User
 from django.contrib.auth.models import User
-from helpers.renderers import DefaultJSONRenderer
+from helpers.renderers import UserJSONRenderer
 from apps.account.serializers import LoginSerializer
 
 
@@ -16,7 +16,7 @@ class LoginAPIView(GenericAPIView):
     permission_classes = (AllowAny,)
     serializer_class = LoginSerializer
     operation = "Login"
-    renderer_classes = (DefaultJSONRenderer,)
+    renderer_classes = (UserJSONRenderer,)
 
     def post(self, request: Request) -> Response:
         """Login a user"""
@@ -33,6 +33,7 @@ class LoginAPIView(GenericAPIView):
         }
         token = JWTAuthentication.generate_token(userdata=userdata)
         username = user.username
+        email = user.email
         # update user last login
         user.last_login = now()
         user.save()
@@ -40,7 +41,8 @@ class LoginAPIView(GenericAPIView):
         return Response(
             {
                 "message": "Welcome {}".format(username),
-                "meta": {"token": token, "username": username},
+                "status": "success",
+                "data": {"token": token, "username": username, "email": email},
             },
             status=status.HTTP_200_OK,
         )
