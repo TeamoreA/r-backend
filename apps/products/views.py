@@ -24,7 +24,6 @@ class CategoryList(ListCreateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     renderer_classes = (DefaultRenderer, )
-    parser_classes = (FileUploadParser,MultiPartParser)
 
     def create(self, request, *args, **kwargs):
         self.operation = "create category"
@@ -55,6 +54,7 @@ class ProductList(ListCreateAPIView):
     serializer_class = ProductSerializer
     renderer_classes = (DefaultRenderer, )
     queryset = Product.objects.all()
+    parser_classes = (MultiPartParser,)
 
     def create(self, request, *args, **kwargs):
         self.operation = "create product"

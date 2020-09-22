@@ -15,6 +15,7 @@ class ProductSerializer(serializers.ModelSerializer):
     """
     Serializer for the Product model
     """
+    product_images = serializers.ImageField(allow_empty_file=True)
     class Meta:
         model = Product
         fields = "__all__"
