@@ -4,10 +4,10 @@ import datetime
 import logging
 
 import jwt
+import six
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
-import six
 from rest_framework import exceptions
 from rest_framework.authentication import TokenAuthentication
 
@@ -42,9 +42,7 @@ class JWTAuthentication(TokenAuthentication):
     def decode_jwt(token):
         """ Method for decoding token."""
         # It takes the token, secret_key and algorithm
-        user_details = jwt.decode(
-            token, settings.SECRET_KEY, algorithm="HS256"
-        )
+        user_details = jwt.decode(token, settings.SECRET_KEY, algorithm="HS256")
 
         return user_details
 
@@ -73,8 +71,7 @@ class JWTAuthentication(TokenAuthentication):
             {
                 "username": username,
                 "iat": datetime.datetime.utcnow(),
-                "exp": datetime.datetime.utcnow()
-                + datetime.timedelta(minutes=720),
+                "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=720),
                 "jti": settings.SECRET_KEY,
             },
             settings.SECRET_KEY,

@@ -6,28 +6,28 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('products', '0005_auto_20200921_1630'),
+        ("products", "0005_auto_20200921_1630"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='product',
-            name='no_of_items',
+            model_name="product",
+            name="no_of_items",
             field=models.IntegerField(default=0),
         ),
         migrations.AddField(
-            model_name='product',
-            name='price',
+            model_name="product",
+            name="price",
             field=models.FloatField(default=0),
         ),
         migrations.AlterField(
-            model_name='product',
-            name='product_images',
-            field=models.ImageField(blank=True, upload_to='images'),
+            model_name="product",
+            name="product_images",
+            field=models.ImageField(blank=True, upload_to="images"),
         ),
         migrations.AlterField(
-            model_name='product',
-            name='size',
+            model_name="product",
+            name="size",
             field=models.FloatField(null=True),
         ),
     ]

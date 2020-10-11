@@ -1,9 +1,5 @@
 import json
-from typing import Any
-from typing import Dict
-from typing import List
-from typing import Optional
-from typing import Union
+from typing import Any, Dict, List, Optional, Union
 
 from rest_framework import status
 from rest_framework.exceptions import ErrorDetail
@@ -15,7 +11,6 @@ message_map = lambda view: lambda status_code: {  # noqa
     "PATCH": "%s updated succesfully" % view.name.capitalize(),
     "DELETE": "%s deleted successfully" % view.name.capitalize(),
 }.get(status_code)
-
 
 
 class UserJSONRenderer(JSONRenderer):
@@ -42,9 +37,7 @@ class UserJSONRenderer(JSONRenderer):
         # the default JSONRenderer to handle rendering errors, so we need to
         # check for this case.
         if renderer_context["response"].status_code == 422:
-            renderer_context[
-                "response"
-            ].status_code = status.HTTP_400_BAD_REQUEST
+            renderer_context["response"].status_code = status.HTTP_400_BAD_REQUEST
         status_code = renderer_context["response"].status_code
 
         return (
@@ -57,6 +50,7 @@ class UserJSONRenderer(JSONRenderer):
                 }
             )
         )
+
 
 class DefaultRenderer(JSONRenderer):
     """
@@ -73,20 +67,15 @@ class DefaultRenderer(JSONRenderer):
         format response data for application views
         """
         if renderer_context["response"].status_code == 422:
-            renderer_context[
-                "response"
-            ].status_code = status.HTTP_400_BAD_REQUEST
+            renderer_context["response"].status_code = status.HTTP_400_BAD_REQUEST
         status_code = renderer_context["response"].status_code
         if renderer_context["request"].method == "GET":
             if renderer_context["kwargs"] == {}:
                 message = (
-                    "All %s" 
-                    % renderer_context["view"].pluralized_name.capitalize()
+                    "All %s" % renderer_context["view"].pluralized_name.capitalize()
                 )
             else:
-                message = (
-                    "%s info" % renderer_context["view"].name.capitalize()
-                )
+                message = "%s info" % renderer_context["view"].name.capitalize()
         else:
             message = message_map(renderer_context["view"])(
                 renderer_context["request"].method
