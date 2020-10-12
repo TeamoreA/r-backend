@@ -10,12 +10,12 @@ class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        fields = ["id", "name"]
+        fields = ["id", "name", "owner"]
 
     def create(self, validated_data):
         """add owner as the current user during creation"""
         validated_data.update({"owner": self.context["request"].user})
-        category = Product.objects.create(**validated_data)
+        category = Category.objects.create(**validated_data)
         return category
 
 
