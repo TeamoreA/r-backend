@@ -1,9 +1,6 @@
 from rest_framework.generics import ListCreateAPIView
 from rest_framework.parsers import MultiPartParser
-from rest_framework.permissions import (
-    AllowAny,
-    IsAuthenticatedOrReadOnly,
-)
+from rest_framework.permissions import AllowAny, IsAuthenticatedOrReadOnly
 
 from apps.products.models import Category, Image, Product
 from apps.products.serializers import (
@@ -12,6 +9,7 @@ from apps.products.serializers import (
     ProductSerializer,
 )
 from helpers.model_wrapper import RetrieveUpdateDestroyAPIViewWrapper
+from helpers.permissions import IsOwnerOrReadOnly
 from helpers.renderers import DefaultRenderer
 
 
@@ -22,7 +20,7 @@ class CategoryList(ListCreateAPIView):
 
     name = "category"
     pluralized_name = "categories"
-    permission_classes = (AllowAny,)  # TODO
+    permission_classes = (IsAuthenticatedOrReadOnly,)
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     renderer_classes = (DefaultRenderer,)
@@ -37,7 +35,7 @@ class CategoryDetail(RetrieveUpdateDestroyAPIViewWrapper):
 
     name = "category"
     pluralized_name = "categories"
-    permission_classes = (AllowAny,)  # TODO
+    permission_classes = (IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly)
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     renderer_classes = (DefaultRenderer,)
@@ -77,7 +75,7 @@ class ProductDetail(RetrieveUpdateDestroyAPIViewWrapper):
     pluralized_name = "products"
     serializer_class = ProductSerializer
     renderer_classes = (DefaultRenderer,)
-    permission_classes = (IsAuthenticatedOrReadOnly,)  # TODO
+    permission_classes = (IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly)  # TODO
     queryset = Product.objects.all()
 
 
@@ -89,6 +87,6 @@ class ImageList(ListCreateAPIView):
     name = "image"
     pluralized_name = "images"
     permission_classes = (AllowAny,)
-    queryset = Image.objects.order_by("created_at")[:5]
+    queryset = Image.objects.order_by("-created_at")[:5]
     serializer_class = ImageSerializer
     renderer_classes = (DefaultRenderer,)

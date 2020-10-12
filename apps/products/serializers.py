@@ -12,6 +12,12 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Category
         fields = ["id", "name"]
 
+    def create(self, validated_data):
+        """add owner as the current user during creation"""
+        validated_data.update({"owner": self.context["request"].user})
+        category = Product.objects.create(**validated_data)
+        return category
+
 
 class ImageSerializer(serializers.ModelSerializer):
     """
