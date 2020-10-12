@@ -2,7 +2,6 @@ from collections import OrderedDict
 from typing import Dict
 
 from django.contrib.auth import authenticate
-
 from rest_framework import serializers
 
 from ..backends import JWTAuthentication
