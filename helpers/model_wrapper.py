@@ -1,6 +1,5 @@
 # common RetrieveUpdateDestroyAPIViewWrapper for models
-from rest_framework import response
-from rest_framework import status
+from rest_framework import response, status
 from rest_framework.generics import RetrieveUpdateDestroyAPIView
 
 

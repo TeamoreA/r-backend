@@ -1,3 +1,5 @@
+# from apps.account.models import User
+from django.contrib.auth.models import User
 from django.utils.timezone import now
 from rest_framework import status
 from rest_framework.generics import GenericAPIView
@@ -6,10 +8,8 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 
 from apps.account.backends import JWTAuthentication
-# from apps.account.models import User
-from django.contrib.auth.models import User
-from helpers.renderers import UserJSONRenderer
 from apps.account.serializers import LoginSerializer
+from helpers.renderers import UserJSONRenderer
 
 
 class LoginAPIView(GenericAPIView):
@@ -23,8 +23,7 @@ class LoginAPIView(GenericAPIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        user_data = serializer.data
-        username = request.data.get('username', None)
+        username = request.data.get("username", None)
         user = User.objects.get(username=username)
         userdata = {
             "id": user.id,

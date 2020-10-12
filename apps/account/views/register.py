@@ -1,14 +1,17 @@
-from apps.account.serializers import RegistrationSerializer
+from rest_framework import status
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny
-from helpers.renderers import UserJSONRenderer
 from rest_framework.request import Request
 from rest_framework.response import Response
-from rest_framework import status
+
+from apps.account.serializers import RegistrationSerializer
+from helpers.renderers import UserJSONRenderer
+
 
 class RegisterAPIView(GenericAPIView):
     """View to register a new user"""
-    permission_classes =  (AllowAny,)
+
+    permission_classes = (AllowAny,)
     renderer_classes = (UserJSONRenderer,)
     serializer_class = RegistrationSerializer
     operation = "Register"
@@ -21,11 +24,14 @@ class RegisterAPIView(GenericAPIView):
 
         return Response(
             {
-                "message": "Hello {}, You have been successfully registered".format(request.data.get('username')),
+                "message": "Hello {}, You have been successfully registered".format(
+                    request.data.get("username")
+                ),
                 "status": "success",
-                "data": {"username": request.data.get('username'), "email": request.data.get('email')}
+                "data": {
+                    "username": request.data.get("username"),
+                    "email": request.data.get("email"),
+                },
             },
             status=status.HTTP_201_CREATED,
         )
-
-

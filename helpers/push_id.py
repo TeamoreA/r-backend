@@ -21,9 +21,7 @@ class PushID:
 
     # Modeled after base64 web-safe chars, but ordered by ASCII.
     PUSH_CHARS = (
-        "-0123456789"
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        "_abcdefghijklmnopqrstuvwxyz"
+        "-0123456789" "ABCDEFGHIJKLMNOPQRSTUVWXYZ" "_abcdefghijklmnopqrstuvwxyz"
     )
 
     def __init__(self) -> None:

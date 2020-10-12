@@ -1,11 +1,13 @@
 # from apps.account.models import User
-from django.contrib.auth.models import User
-from rest_framework import serializers
-from rest_framework import validators
 from typing import Dict
+
+from django.contrib.auth.models import User
+from rest_framework import serializers, validators
+
 
 class RegistrationSerializer(serializers.ModelSerializer):
     """serializer for creating new users"""
+
     def __init__(self, *args, **kwargs) -> None:
         super(RegistrationSerializer, self).__init__(*args, **kwargs)
 
@@ -14,6 +16,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
             error_messages["null"] = error_messages["blank"] = error_messages[
                 "required"
             ] = "Please fill in the {}.".format(field)
+
     email = serializers.RegexField(
         regex=r"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$",
         validators=[

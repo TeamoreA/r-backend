@@ -6,5 +6,5 @@ app_name = "authentication"
 
 urlpatterns = [
     path("auth/register", views.RegisterAPIView.as_view(), name="user_signup"),
-    path("auth/login", views.LoginAPIView.as_view(), name="user_login")
+    path("auth/login", views.LoginAPIView.as_view(), name="user_login"),
 ]
