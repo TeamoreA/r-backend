@@ -8,7 +8,7 @@ from utils.base_model import MyBaseModel
 
 class Category(MyBaseModel):
     name = models.CharField(unique=True, max_length=100)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.name
