@@ -27,7 +27,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "*",
+    "http://localhost:4200",
+    "https://the-ro-2020.herokuapp.com",
+]
 
 CORS_ORIGIN_ALLOW_ALL = True
 # Application definition
