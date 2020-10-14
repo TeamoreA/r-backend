@@ -111,3 +111,6 @@ images/
 
 # file uploads
 uploads/
+
+# static files
+media-root/
